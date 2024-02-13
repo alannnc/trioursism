@@ -2,3 +2,4 @@
 .dfx
 node_modules
 src/frontend/dist
+.bitcoin

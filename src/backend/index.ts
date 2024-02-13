@@ -1,6 +1,7 @@
-import { Server } from "azle";
+import { Principal, Server, ic } from "azle";
 import express from "express";
 import z from "zod";
+import { CkbtcLedger, CkbtcMinter } from "./ckbtc";
 
 const userSchema = z.object({
   id: z.string(),
@@ -168,6 +169,10 @@ export default Server(() => {
 
   app.use(express.json());
 
+  // Init ckBTC canisters
+  const ckbtcLedger = new CkbtcLedger(Principal.fromText(process.env.CKBTC_LEDGER_CANISTER_ID!));
+  const ckbtcMinter = new CkbtcMinter(Principal.fromText(process.env.CKBTC_MINTER_CANISTER_ID!));
+
   // const router = express.Router();
 
   app.get("/global-state", (req, res) => {
@@ -279,6 +284,16 @@ export default Server(() => {
     res.json({ success: true });
   });
 
+  app.get("/balance", async (req, res) => {
+    try {
+      const balance = await ckbtcLedger.getBalance(generateId());
+      res.send(balance);
+    } catch (error: any) {
+      console.log({ error });
+      throw error;
+    }
+  });
+
   // pay booking
 
   // review service
@@ -287,3 +302,11 @@ export default Server(() => {
 
   return app.listen();
 });
+
+function generateId(): Principal {
+  const randomBytes = new Array(29)
+    .fill(0)
+    .map((_) => Math.floor(Math.random() * 256));
+
+  return Principal.fromUint8Array(Uint8Array.from(randomBytes));
+}
