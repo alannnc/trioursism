@@ -287,7 +287,7 @@ export default Server(() => {
   app.get("/balance", async (req, res) => {
     try {
       const balance = await ckbtcLedger.getBalance(generateId());
-      res.send(balance);
+      res.json({ balance });
     } catch (error: any) {
       console.log({ error });
       throw error;
