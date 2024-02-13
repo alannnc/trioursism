@@ -2,24 +2,24 @@ import { Server } from "azle";
 import express from "express";
 import z from "zod";
 
-const userSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string().email(),
-});
+// const userSchema = z.object({
+//   id: z.string(),
+//   name: z.string(),
+//   email: z.string().email(),
+// });
 
-const businessSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  legalName: z.string(),
-  description: z.string(),
-  images: z.array(z.string()),
-  location: z.string(),
-  type: z.string(),
-  owner: z.string(),
-  lat: z.number(),
-  long: z.number(),
-});
+// const businessSchema = z.object({
+//   id: z.string(),
+//   name: z.string(),
+//   legalName: z.string(),
+//   description: z.string(),
+//   images: z.array(z.string()),
+//   location: z.string(),
+//   type: z.string(),
+//   owner: z.string(),
+//   lat: z.number(),
+//   long: z.number(),
+// });
 
 const findServiceSchema = z.object({
   country: z.string().optional(),
@@ -82,7 +82,7 @@ const globalStateSchema = z.object({
 
 type GlobalState = z.TypeOf<typeof globalStateSchema>;
 
-let globalState: GlobalState = {
+export let globalState: GlobalState = {
   users: [],
   business: [],
   services: [
@@ -180,23 +180,23 @@ export default Server(() => {
 
   // user profile creation
   // name, email
-  app.post("/create-user", (req, res) => {
-    const data = userSchema.parse(req.body);
+  // app.post("/create-user", (req, res) => {
+  //   const data = userSchema.parse(req.body);
 
-    globalState.users.push(data);
+  //   globalState.users.push(data);
 
-    res.json({ success: true });
-  });
+  //   res.json({ success: true });
+  // });
 
   // business creation
   // name, address, legal name, phone, email, website, socials, description, images
-  app.post("/create-business", (req, res) => {
-    const data = serviceSchema.parse(req.body);
+  // app.post("/create-business", (req, res) => {
+  //   const data = serviceSchema.parse(req.body);
 
-    globalState.services.push(data);
+  //   globalState.services.push(data);
 
-    res.json({ success: true });
-  });
+  //   res.json({ success: true });
+  // });
 
   // create service
   // name, description, images, price, location, type, owner
