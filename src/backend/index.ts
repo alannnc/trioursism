@@ -1,4 +1,4 @@
-import { Principal, Server, ic } from "azle";
+import { Principal, Server } from "azle";
 import express from "express";
 import z from "zod";
 import { CkbtcLedger, CkbtcMinter } from "./ckbtc";
@@ -130,9 +130,6 @@ export default Server(() => {
   const ckbtcLedger = new CkbtcLedger(
     Principal.fromText(process.env.CKBTC_LEDGER_CANISTER_ID!)
   );
-  const ckbtcMinter = new CkbtcMinter(
-    Principal.fromText(process.env.CKBTC_MINTER_CANISTER_ID!)
-  );
 
   app.get("/global-state", (req, res) => {
     res.json(globalState);
@@ -140,7 +137,9 @@ export default Server(() => {
 
   app.get("/balance", async (req, res) => {
     try {
-      const balance = await ckbtcLedger.getBalance(generateId());
+      const user = globalState.users[0];
+      const principal = Principal.fromText(user.principal);
+      const balance = await ckbtcLedger.getBalance(principal);
       res.json({ balance });
     } catch (error: any) {
       console.log({ error });
@@ -152,10 +151,12 @@ export default Server(() => {
     try {
       const user = globalState.users[0];
       const principal = Principal.fromText(user.principal);
-      const result = await ckbtcMinter.updateBalance(principal);
-      res.json({ result });
+      const ckbtcMinter = new CkbtcMinter(
+        Principal.fromText(process.env.CKBTC_MINTER_CANISTER_ID!)
+      );
+      await ckbtcMinter.updateBalance(principal);
+      res.send("ok");
     } catch (error: any) {
-      console.log({ error });
       throw error;
     }
   });
@@ -174,11 +175,3 @@ export default Server(() => {
 
   return app.listen();
 });
-
-function generateId(): Principal {
-  const randomBytes = new Array(29)
-    .fill(0)
-    .map((_) => Math.floor(Math.random() * 256));
-
-  return Principal.fromUint8Array(Uint8Array.from(randomBytes));
-}
