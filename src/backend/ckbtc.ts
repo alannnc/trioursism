@@ -23,9 +23,6 @@ export class CkbtcLedger {
     }
 
     public async getBalance(subaccount: Principal): Promise<number> {
-        console.log("Canister ID", ic.id());
-        console.log("Subaccount", subaccount);
-
         const satoshis = await ic.call(this.ledger.icrc1_balance_of, {
             args: [
                 {
@@ -71,7 +68,11 @@ export class CkbtcLedger {
             ]
         });
 
-        return result;
+        if (result.Err) {
+            throw result.Err;
+        }
+
+        return result.Ok;
     }
 }
 
