@@ -137,7 +137,12 @@ export default Server(() => {
 
   app.get("/balance", async (req, res) => {
     try {
-      const user = globalState.users[0];
+      const { id } = req.query;
+      // find user by id
+      const user = globalState.users.find((u) => u.id === id);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
       const principal = Principal.fromText(user.principal);
       const balance = await ckbtcLedger.getBalance(principal);
       res.json({ balance });
