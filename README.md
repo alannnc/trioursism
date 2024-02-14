@@ -8,9 +8,9 @@ Find the best places to stay or activities to do for your next trip that accepts
 
 ## Demo
 
-[LandingPage](http://www.github.com/bundlydev/triourism/resources/landing-page.png)
-[SearchPage](http://www.github.com/bundlydev/triourism/resources/search-page.png)
-[DetailPage](http://www.github.com/bundlydev/triourism/resources/detail-page.png)
+[LandingPage](http://www.github.com/bundlydev/triourism/blob/main/resources/landing-page.png)
+[SearchPage](http://www.github.com/bundlydev/triourism/blob/main/resources/search-page.png)
+[DetailPage](http://www.github.com/bundlydev/triourism/blob/main/resources/detail-page.png)
 
 ## Acknowledgements
 
