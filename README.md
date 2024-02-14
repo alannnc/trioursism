@@ -16,7 +16,8 @@ Find the best places to stay or activities to do for your next trip that accepts
 
 This project it's a starter for an MVP of using:
 
-- Node Express server with Azle in a real scenario.
+- Node Express API server with Azle for the backend.
+- NextJs for the frontend.
 - Payments should be done using ckBTC, ckETH or ICP.
 - Identity or user auth should use II.
 
