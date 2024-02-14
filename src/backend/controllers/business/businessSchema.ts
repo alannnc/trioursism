@@ -1,6 +1,6 @@
 import z from "zod";
 
-const businessSchema = z.object({
+export const businessSchema = z.object({
   id: z.string(),
   name: z.string(),
   legalName: z.string(),
@@ -12,5 +12,3 @@ const businessSchema = z.object({
   lat: z.number(),
   long: z.number(),
 });
-
-module.exports = { businessSchema };

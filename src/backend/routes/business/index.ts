@@ -1,3 +1,9 @@
-const businessController = require("../controllers/business");
+import express from "express";
 
-router.post("/business/create-business", usersController.createBusiness);
+import BusinessController from "../../controllers/business";
+
+const router = express.Router();
+
+router.post("/", BusinessController.create);
+
+export default router;
