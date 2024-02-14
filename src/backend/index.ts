@@ -153,11 +153,7 @@ export default Server(() => {
       const user = globalState.users[0];
       const principal = Principal.fromText(user.principal);
       const result = await ckbtcMinter.updateBalance(principal);
-      res.json({
-        result,
-        principal: Principal.fromText(user.principal),
-        p2: principal,
-      });
+      res.json({ result });
     } catch (error: any) {
       console.log({ error });
       throw error;
