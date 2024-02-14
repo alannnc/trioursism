@@ -6,17 +6,17 @@
 
 Find the best places to stay or activities to do for your next trip that accepts payments in ckBtc.
 
-## Demo
+## Demo screenshots
 
-[LandingPage](http://www.github.com/bundlydev/triourism/blob/main/resources/landing-page.png)
-[SearchPage](http://www.github.com/bundlydev/triourism/blob/main/resources/search-page.png)
-[DetailPage](http://www.github.com/bundlydev/triourism/blob/main/resources/detail-page.png)
+![LandingPage](http://www.github.com/bundlydev/triourism/blob/main/resources/landing-page.png)
+![SearchPage](http://www.github.com/bundlydev/triourism/blob/main/resources/search-page.png)
+![DetailPage](http://www.github.com/bundlydev/triourism/blob/main/resources/detail-page.png)
 
-## Acknowledgements
+## Acknowledgments
 
-This projects its a starter for a MVP of using:
+This project it's a starter for an MVP of using:
 
-- Node Express server with azle in a real scenario.
+- Node Express server with Azle in a real scenario.
 - Payments should be done using ckBTC, ckETH or ICP.
 - Identity or user auth should use II.
 
@@ -44,8 +44,8 @@ More on:
 ## Roadmap
 
 - Implement Internet Identity
-- Use Sqlite with prisma for all DB transactions
-- Implement more payment methods as ICP or ckETH
+- Use SQlite with prisma for all DB transactions
+- Implement more payment methods such as ICP or ckETH
 
 ## Run Locally
 
