@@ -10,7 +10,7 @@ export default function SearchPage() {
     async function loadGlobalState() {
       try {
         const response = await fetch(
-          "http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/list-services",
+          "http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/service/list",
           {
             redirect: "follow",
             method: "GET",
@@ -42,13 +42,15 @@ export default function SearchPage() {
       </nav>
       <MainLayout>
         <div className="flex flex-col">
-        <h1>Search</h1>
-        <div className="flex flex-row flex-wrap overflow-y-auto">
-          {services &&
-            services.map((service) => <div key={service.id}>
-              <ListItemService service={service} />
-            </div>)}
-        </div>
+          <h1>Search</h1>
+          <div className="flex flex-row flex-wrap overflow-y-auto">
+            {services &&
+              services.map((service) => (
+                <div key={service.id}>
+                  <ListItemService service={service} />
+                </div>
+              ))}
+          </div>
         </div>
       </MainLayout>
     </>
