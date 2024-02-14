@@ -1,11 +1,27 @@
 import { Request, Response } from "express";
 import { globalState } from "../..";
-import { bookingSchema } from "./bookingSchema";
+import { bookingCreateSchema, bookingSchema } from "./bookingSchema";
+import { v4 as uuid } from "uuid";
+import PaymentController from "../payment";
 
 class BookingController {
   static create(req: Request, res: Response) {
-    const data = bookingSchema.parse(req.body);
-    globalState.bookings.push(data);
+    const data = bookingCreateSchema.parse(req.body);
+    const booking = {
+      id: uuid(),
+      ...data,
+      status: "pending",
+    };
+
+    globalState.bookings.push(booking);
+
+    const service = globalState.services.find(
+      (service) => service.id === data.serviceId
+    );
+    req.body["bookingUid"] = booking.id;
+    req.body["amount"] = service?.price;
+
+    PaymentController.create(req, res);
 
     res.json({ success: true });
   }

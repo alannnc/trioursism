@@ -5,6 +5,13 @@ export const bookingSchema = z.object({
   serviceId: z.string(),
   userId: z.string(),
   status: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
+  startDate: z.string(),
+  endDate: z.string(),
+});
+
+export const bookingCreateSchema = z.object({
+  serviceId: z.string(),
+  userId: z.string(),
+  startDate: z.string(),
+  endDate: z.string(),
 });

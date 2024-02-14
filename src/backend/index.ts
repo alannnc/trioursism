@@ -14,7 +14,7 @@ import businessRoute from "./routes/business";
 import serviceRoute from "./routes/service";
 import bookingRoute from "./routes/booking";
 import reviewRoute from "./routes/review";
-// import paymentRoute from "./routes/payment";
+import paymentRoute from "./routes/pay";
 
 const globalStateSchema = z.object({
   users: z.array(userSchema),
@@ -145,7 +145,7 @@ export default Server(() => {
 
   app.use("/review", reviewRoute);
 
-  // app.use("/payment", require("./routes/payment"));
+  app.use("/payment", paymentRoute);
 
   return app.listen();
 });

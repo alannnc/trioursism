@@ -1,8 +1,12 @@
-# trioursism
+# triourism
 
 # How to use
 
 In a terminal, run the following commands:
+
+```
+codesign -s - .bitcoin/bin/bitcoind
+```
 
 ```
 npm install
@@ -19,4 +23,10 @@ Open another terminal and run:
 
 ```
 npm run icp:deploy
+```
+
+or
+
+```
+npm run icp:deploy:local
 ```
