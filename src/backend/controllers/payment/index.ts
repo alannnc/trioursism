@@ -27,7 +27,7 @@ class PaymentController {
   }
 
   static async pay(req: Request, res: Response) {
-    const { id } = req.params;
+    const { id } = req.query;
     // look for payment pending status
 
     const payment = globalState.payments.find((p) => p.id === id);
@@ -53,15 +53,15 @@ class PaymentController {
 
     try {
       // grab user[0] from globalState
-      const principalOwner = Principal.fromText(globalState.users[0].principal);
-      const principalDemo = Principal.fromText(globalState.users[1].principal);
+      const principalBuyer = Principal.fromText(globalState.users[0].principal);
+      const principalOwner = Principal.fromText(globalState.users[1].principal);
       const amount = 0.5;
       const ckbtcLedger = new CkbtcLedger(
         Principal.fromText(process.env.CKBTC_LEDGER_CANISTER_ID!)
       );
 
       const response = await ckbtcLedger.transfer(
-        principalDemo,
+        principalBuyer,
         principalOwner,
         amount
       );
