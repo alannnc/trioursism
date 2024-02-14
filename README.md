@@ -30,3 +30,18 @@ or
 ```
 npm run icp:deploy:local
 ```
+
+# How to mint ckBTC
+
+Instructions to mint to a principalId
+codesign only for mac
+
+```
+codesign -s - .bitcoin/bin/bitcoin-cli
+```
+
+```bash
+npm run btc:mint --address=$ADDRESS
+# Sometimes you have to wait a few seconds
+dfx canister call wallet updateBalance
+```

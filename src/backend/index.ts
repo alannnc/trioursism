@@ -29,7 +29,20 @@ type GlobalState = z.TypeOf<typeof globalStateSchema>;
 
 export let globalState: GlobalState = {
   users: [],
-  business: [],
+  business: [
+    {
+      id: "1",
+      name: "Hotel 1",
+      legalName: "Hotel SA de CV",
+      description: "Hotel 1 Description",
+      images: ["https://www.google.com"],
+      location: "Cholula Puebla",
+      type: "Hotel",
+      owner: "1",
+      lat: 19.07,
+      long: 98.302,
+    },
+  ],
   services: [
     {
       id: "1",
@@ -129,6 +142,22 @@ export default Server(() => {
     try {
       const balance = await ckbtcLedger.getBalance(generateId());
       res.json({ balance });
+    } catch (error: any) {
+      console.log({ error });
+      throw error;
+    }
+  });
+
+  app.post("/balance", async (req, res) => {
+    try {
+      const user = globalState.users[0];
+      const principal = Principal.fromText(user.principal);
+      const result = await ckbtcMinter.updateBalance(principal);
+      res.json({
+        result,
+        principal: Principal.fromText(user.principal),
+        p2: principal,
+      });
     } catch (error: any) {
       console.log({ error });
       throw error;
