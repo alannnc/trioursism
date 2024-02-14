@@ -1,5 +1,9 @@
 # Triourism
 
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+
 Find the best places to stay or activities to do for your next trip that accepts payments in ckBtc.
 
 ## Demo
@@ -7,12 +11,6 @@ Find the best places to stay or activities to do for your next trip that accepts
 [LandingPage](http://www.github.com/bundlydev/triourism/resources/landing-page.png)
 [SearchPage](http://www.github.com/bundlydev/triourism/resources/search-page.png)
 [DetailPage](http://www.github.com/bundlydev/triourism/resources/detail-page.png)
-
-## Badges
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
 ## Acknowledgements
 
