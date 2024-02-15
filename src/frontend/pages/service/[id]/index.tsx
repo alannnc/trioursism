@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { MainLayout } from "ui/components/mainLayout";
-import { ArrowLeft, Star, StarIcon } from "lucide-react";
+import { ArrowLeft, StarIcon } from "lucide-react";
 import { Button } from "ui/@/components/ui/button";
 import {
   PopoverTrigger,
@@ -10,10 +10,14 @@ import {
 import { Calendar } from "ui/@/components/ui/calendar";
 import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
+import { useToast } from "ui/@/components/ui/use-toast";
+import { Toaster } from "ui/@/components/ui/toaster";
 
 export default function ServiceById() {
   const router = useRouter();
+  const { toast } = useToast();
+
   const { id } = router.query;
   const [range, setRange] = useState<DateRange | undefined>();
 
@@ -36,6 +40,7 @@ export default function ServiceById() {
   }>(null);
   const [paymentId, setPaymentId] = useState<string>("");
   const [bookingUid, setBookingUid] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const [reviews, setReviews] = useState<
     {
@@ -145,6 +150,7 @@ export default function ServiceById() {
   }
 
   async function reserveAndPay() {
+    setLoading(true);
     const reserveResponse = await reserve();
     console.log({ reserveResponse });
     if (reserveResponse.booking.id && reserveResponse.payment.id) {
@@ -154,12 +160,18 @@ export default function ServiceById() {
       const paymentResponse = await pay(reserveResponse.payment.id);
       if (paymentResponse) {
         console.log("Payment successful");
+        toast({
+          title: "Payment successful",
+          description: "All is ready for your trip!",
+        });
       }
     }
+    setLoading(false);
   }
 
   return (
     <div>
+      <Toaster />
       <nav className="flex justify-between items-center py-4 px-8">
         <div className="flex space-x-8">
           <button
@@ -221,6 +233,7 @@ export default function ServiceById() {
                   onClick={async () => {
                     await reserveAndPay();
                   }}
+                  disabled={!range || loading}
                 >
                   Reserve and Pay
                 </Button>
