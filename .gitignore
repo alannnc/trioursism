@@ -3,4 +3,4 @@
 node_modules
 src/frontend/dist
 .bitcoin
-/src/frontend/.next/*
+/src/frontend/.next
