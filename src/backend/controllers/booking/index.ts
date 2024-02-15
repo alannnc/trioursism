@@ -3,10 +3,15 @@ import { globalState } from "../..";
 import { bookingCreateSchema, bookingSchema } from "./bookingSchema";
 import { v4 as uuid } from "uuid";
 import PaymentController from "../payment";
+import PaymentService from "../../services/payment";
 
 class BookingController {
-  static create(req: Request, res: Response) {
-    const data = bookingCreateSchema.parse(req.body);
+  static async create(req: Request, res: Response) {
+    const parse = bookingCreateSchema.safeParse(req.body);
+    if (!parse.success) {
+      return res.status(400).json({ error: parse.error });
+    }
+    const data = parse.data;
     const booking = {
       id: uuid(),
       ...data,
@@ -18,12 +23,18 @@ class BookingController {
     const service = globalState.services.find(
       (service) => service.id === data.serviceId
     );
+    if (!service?.price) {
+      return res.status(400).json({ error: "Service not found" });
+    }
     req.body["bookingUid"] = booking.id;
     req.body["amount"] = service?.price;
 
-    PaymentController.create(req, res);
+    const payment = await PaymentService.createPayment(
+      booking.id,
+      service?.price
+    );
 
-    res.json({ success: true });
+    res.json({ booking, payment });
   }
 
   static update(req: Request, res: Response) {

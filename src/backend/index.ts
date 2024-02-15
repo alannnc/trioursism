@@ -8,6 +8,7 @@ import { serviceSchema } from "./controllers/services/servicesSchema";
 import { bookingSchema } from "./controllers/booking/bookingSchema";
 import { reviewSchema } from "./controllers/review/reviewSchema";
 import { paymentSchema } from "./controllers/payment/paymentSchema";
+import bodyParser from "body-parser";
 
 import authRoute from "./routes/auth/users";
 import businessRoute from "./routes/business";
@@ -15,6 +16,8 @@ import serviceRoute from "./routes/service";
 import bookingRoute from "./routes/booking";
 import reviewRoute from "./routes/review";
 import paymentRoute from "./routes/pay";
+
+const cors = require("cors");
 
 const globalStateSchema = z.object({
   users: z.array(userSchema),
@@ -165,6 +168,8 @@ export default Server(() => {
       throw error;
     }
   });
+  app.use(cors());
+  app.use(bodyParser.json());
 
   app.use("/auth", authRoute);
 

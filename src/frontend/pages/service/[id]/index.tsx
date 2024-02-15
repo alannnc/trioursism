@@ -34,6 +34,8 @@ export default function ServiceById() {
     state: string;
     city: string;
   }>(null);
+  const [paymentId, setPaymentId] = useState<string>("");
+  const [bookingUid, setBookingUid] = useState<string>("");
 
   const [reviews, setReviews] = useState<
     {
@@ -95,6 +97,67 @@ export default function ServiceById() {
     }
   }
 
+  async function reserve() {
+    try {
+      const response = await fetch(
+        `http://br5f7-7uaaa-aaaaa-qaaca-cai.localhost:4943/booking`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            serviceId: service.id,
+            userId: "1",
+            startDate: range.from,
+            endDate: range.to,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "cors",
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function pay(paymentId: string) {
+    try {
+      const response = await fetch(
+        `http://br5f7-7uaaa-aaaaa-qaaca-cai.localhost:4943/payment/pay?id=${paymentId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+          mode: "cors",
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function reserveAndPay() {
+    const reserveResponse = await reserve();
+    console.log({ reserveResponse });
+    if (reserveResponse.booking.id && reserveResponse.payment.id) {
+      setPaymentId(reserveResponse.payment.id);
+      setBookingUid(reserveResponse.booking.id);
+
+      const paymentResponse = await pay(reserveResponse.payment.id);
+      if (paymentResponse) {
+        console.log("Payment successful");
+      }
+    }
+  }
+
   return (
     <div>
       <nav className="flex justify-between items-center py-4 px-8">
@@ -153,7 +216,12 @@ export default function ServiceById() {
                     </PopoverContent>
                   </Popover>
                 </div>
-                <Button className="w-full mt-4 hover:bg-purple-600">
+                <Button
+                  className="w-full mt-4 hover:bg-purple-600"
+                  onClick={async () => {
+                    await reserveAndPay();
+                  }}
+                >
                   Reserve and Pay
                 </Button>
               </div>

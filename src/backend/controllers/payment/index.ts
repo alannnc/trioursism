@@ -3,9 +3,9 @@ import { globalState } from "../..";
 // import { CkbtcMinter } from "../../ckbtc";
 import { v4 as uuid } from "uuid";
 import { paymentCreateSchema } from "./paymentSchema";
-import { generateId } from "../../lib/utils";
 import { CkbtcLedger } from "../../ckbtc";
 import { Principal } from "azle";
+import PaymentService from "../../services/payment";
 
 class PaymentController {
   static async create(req: Request, res: Response) {
@@ -14,14 +14,10 @@ class PaymentController {
       return res.status(400).json({ error: parse.error });
     }
 
-    const { bookingUid, amount } = parse.data;
-    const payment = {
-      bookingUid,
-      amount,
-      id: uuid(),
-      status: "pending",
-    };
-    globalState.payments.push(payment);
+    const payment = PaymentService.createPayment(
+      parse.data.bookingUid,
+      parse.data.amount
+    );
 
     res.json(payment);
   }
