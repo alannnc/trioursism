@@ -50,7 +50,7 @@ export default function ServiceById() {
     async function loadGlobalState() {
       try {
         const response = await fetch(
-          `http://bw4dl-smaaa-aaaaa-qaacq-cai.localhost:4943/service/find-by-id?id=${id}`,
+          `http://br5f7-7uaaa-aaaaa-qaaca-cai.localhost:4943/service/find-by-id?id=${id}`,
           {
             method: "GET",
           }
@@ -68,7 +68,7 @@ export default function ServiceById() {
     async function loadReviews() {
       try {
         const response = await fetch(
-          `http://bw4dl-smaaa-aaaaa-qaacq-cai.localhost:4943/review/find-by-id?id=${id}`,
+          `http://br5f7-7uaaa-aaaaa-qaaca-cai.localhost:4943/review/find-by-id?id=${id}`,
           {
             method: "GET",
           }

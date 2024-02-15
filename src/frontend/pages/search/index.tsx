@@ -10,7 +10,7 @@ export default function SearchPage() {
     async function loadGlobalState() {
       try {
         const response = await fetch(
-          "http://bw4dl-smaaa-aaaaa-qaacq-cai.localhost:4943/service/list",
+          "http://br5f7-7uaaa-aaaaa-qaaca-cai.localhost:4943/service/list",
           {
             redirect: "follow",
             method: "GET",
