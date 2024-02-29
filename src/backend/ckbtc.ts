@@ -3,7 +3,7 @@ import { ICRC } from "azle/canisters/icrc";
 import BigNumber from "bignumber.js";
 
 import { Minter } from "../../tokens/ckbtc-minter";
-import { padPrincipalWithZeros } from "./utils";
+import { padPrincipalWithZeros } from "./lib/utils";
 
 export class CkbtcLedger {
     private ledger: typeof ICRC;
@@ -23,9 +23,6 @@ export class CkbtcLedger {
     }
 
     public async getBalance(subaccount: Principal): Promise<number> {
-        console.log("Canister ID", ic.id());
-        console.log("Subaccount", subaccount);
-
         const satoshis = await ic.call(this.ledger.icrc1_balance_of, {
             args: [
                 {

@@ -1,4 +1,6 @@
 {
+  "version": 1,
+  "dfx": "0.17.0",
   "canisters": {
     "express": {
       "type": "custom",
@@ -23,6 +25,17 @@
       "type": "custom",
       "candid": "tokens/ckbtc-kyt/ckbtc-kyt.did",
       "wasm": "https://download.dfinity.systems/ic/d6d395a480cd6986b4788f4aafffc5c03a07e46e/canisters/ic-ckbtc-kyt.wasm.gz"
+    }
+  },
+  "networks": {
+    "local": {
+      "type": "ephemeral",
+      "bind": "127.0.0.1:4943"
+    }
+  },
+  "defaults": {
+    "replica": {
+      "subnet_type": "system"
     }
   }
 }

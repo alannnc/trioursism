@@ -15,6 +15,7 @@ import serviceRoute from "./routes/service";
 import bookingRoute from "./routes/booking";
 import reviewRoute from "./routes/review";
 import paymentRoute from "./routes/pay";
+import { generateId } from "./lib/utils";
 
 const globalStateSchema = z.object({
   users: z.array(userSchema),
@@ -126,19 +127,15 @@ export default Server(() => {
 
   app.use(express.json());
 
-  // Init ckBTC canisters
-  const ckbtcLedger = new CkbtcLedger(
-    Principal.fromText(process.env.CKBTC_LEDGER_CANISTER_ID!)
-  );
-  const ckbtcMinter = new CkbtcMinter(
-    Principal.fromText(process.env.CKBTC_MINTER_CANISTER_ID!)
-  );
-
   app.get("/global-state", (req, res) => {
     res.json(globalState);
   });
 
   app.get("/balance", async (req, res) => {
+    const ckbtcLedger = new CkbtcLedger(
+      Principal.fromText(process.env.CKBTC_LEDGER_CANISTER_ID!)
+    );
+
     try {
       const balance = await ckbtcLedger.getBalance(generateId());
       res.json({ balance });
@@ -149,6 +146,10 @@ export default Server(() => {
   });
 
   app.post("/balance", async (req, res) => {
+    const ckbtcMinter = new CkbtcMinter(
+      Principal.fromText(process.env.CKBTC_MINTER_CANISTER_ID!)
+    );
+
     try {
       const user = globalState.users[0];
       const principal = Principal.fromText(user.principal);
@@ -178,11 +179,3 @@ export default Server(() => {
 
   return app.listen();
 });
-
-function generateId(): Principal {
-  const randomBytes = new Array(29)
-    .fill(0)
-    .map((_) => Math.floor(Math.random() * 256));
-
-  return Principal.fromUint8Array(Uint8Array.from(randomBytes));
-}

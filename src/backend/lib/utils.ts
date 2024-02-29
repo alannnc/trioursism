@@ -1,4 +1,10 @@
-import { Principal } from "azle";
+import { Principal, blob } from "azle";
+
+export function padPrincipalWithZeros(blob: blob): blob {
+  let newUin8Array = new Uint8Array(32);
+  newUin8Array.set(blob);
+  return newUin8Array;
+}
 
 export function generateId(): Principal {
   const randomBytes = new Array(29)
