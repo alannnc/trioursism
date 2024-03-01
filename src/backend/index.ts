@@ -176,6 +176,15 @@ export default Server(() => {
 
   app.use("/payment", paymentRoute);
 
+  app.post("/test", (req, res) => {
+    res.json(req.body);
+  });
+
+  app.get("/whoami", (req, res) => {
+    res.statusCode = 200;
+    res.send(ic.caller());
+  });
+
   return app.listen();
 });
 

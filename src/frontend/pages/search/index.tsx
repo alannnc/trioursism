@@ -10,7 +10,7 @@ export default function SearchPage() {
     async function loadGlobalState() {
       try {
         const response = await fetch(
-          "http://bw4dl-smaaa-aaaaa-qaacq-cai.localhost:4943/service/list",
+          `${process.env.NEXT_PUBLIC_API_REST_URL}/service/list`,
           {
             redirect: "follow",
             method: "GET",

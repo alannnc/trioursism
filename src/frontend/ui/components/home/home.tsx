@@ -69,9 +69,11 @@ export const HomeComponent = () => {
             Signup
           </a>
         </div>
-        <Button className="bg-transparent hover:bg-gray-700 text-white font-semibold py-2 px-4 border border-white hover:border-transparent rounded">
-          LOG IN
-        </Button>
+        <Link href="/login">
+          <Button className="bg-transparent hover:bg-gray-700 text-white font-semibold py-2 px-4 border border-white hover:border-transparent rounded">
+            LOG IN
+          </Button>
+        </Link>
       </nav>
       <MainLayout>
         <div className="w-1/2">
@@ -83,7 +85,9 @@ export const HomeComponent = () => {
                   src="/placeholder.svg?height=80&width=80"
                   className="rounded-sm h-[80px] w-[80px]"
                 />
-                <AvatarFallback className="h-[80px] w-[80px] rounded-sm">HIC</AvatarFallback>
+                <AvatarFallback className="h-[80px] w-[80px] rounded-sm">
+                  HIC
+                </AvatarFallback>
               </Avatar>
 
               <div className="ml-4">

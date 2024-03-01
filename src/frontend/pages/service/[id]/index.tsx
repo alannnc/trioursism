@@ -11,6 +11,7 @@ import { Calendar } from "ui/@/components/ui/calendar";
 import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { format } from "date-fns";
+import Image from "next/image";
 
 export default function ServiceById() {
   const router = useRouter();
@@ -50,7 +51,7 @@ export default function ServiceById() {
     async function loadGlobalState() {
       try {
         const response = await fetch(
-          `http://bw4dl-smaaa-aaaaa-qaacq-cai.localhost:4943/service/find-by-id?id=${id}`,
+          `${process.env.NEXT_PUBLIC_API_REST_URL}/service/find-by-id?id=${id}`,
           {
             method: "GET",
           }
@@ -68,7 +69,7 @@ export default function ServiceById() {
     async function loadReviews() {
       try {
         const response = await fetch(
-          `http://bw4dl-smaaa-aaaaa-qaacq-cai.localhost:4943/review/find-by-id?id=${id}`,
+          `${process.env.NEXT_PUBLIC_API_REST_URL}/review/find-by-id?id=${id}`,
           {
             method: "GET",
           }
@@ -113,7 +114,7 @@ export default function ServiceById() {
           <div className="max-w-2xl mx-auto">
             <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
               <div className="p-6 bg-[#252836] dark:bg-gray-800 border-b border-black w-[500px]">
-                <img
+                <Image
                   alt={service.name}
                   className="object-cover w-full h-64 rounded-lg"
                   height={500}
@@ -161,8 +162,8 @@ export default function ServiceById() {
             <div className="bg-[#252836] dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-4">
               <div className="p-6 bg-[#252836] dark:bg-gray-800 border-b border-black">
                 <h2 className="font-bold text-2xl">Customer Reviews</h2>
-                {reviews?.map((review) => (
-                  <div className="mt-4">
+                {reviews?.map((review, index) => (
+                  <div className="mt-4" key={index}>
                     <p className="font-bold">{review.userName}</p>
                     <p className="text-gray-600 dark:text-gray-400">
                       {review.comment}

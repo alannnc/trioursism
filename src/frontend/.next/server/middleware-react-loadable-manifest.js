@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST='{"../node_modules/@bundly/ic-core-js/node_modules/@dfinity/agent/lib/esm/agent/http/index.js -> ../../canisterStatus":{"id":4050,"files":[]},"../node_modules/@bundly/ic-http-client/node_modules/@dfinity/agent/lib/esm/agent/http/index.js -> ../../canisterStatus":{"id":3718,"files":[]},"../node_modules/@bundly/ic-react/node_modules/@dfinity/agent/lib/esm/agent/http/index.js -> ../../canisterStatus":{"id":6964,"files":[]}}';

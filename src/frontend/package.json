@@ -32,6 +32,8 @@
     "tailwindcss": "^3.4.1"
   },
   "dependencies": {
+    "@bundly/ic-core-js": "^0.4.2-rc.7",
+    "@bundly/ic-react": "^0.4.2-rc.7",
     "@dfinity/agent": "^0.19.2",
     "@dfinity/candid": "^0.19.2",
     "@dfinity/principal": "^0.19.2",

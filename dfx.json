@@ -7,7 +7,19 @@
       "build": "npx azle express",
       "wasm": ".azle/express/express.wasm",
       "gzip": true,
-      "env": ["CKBTC_LEDGER_CANISTER_ID", "CKBTC_MINTER_CANISTER_ID"]
+      "env": ["CKBTC_LEDGER_CANISTER_ID", "CKBTC_MINTER_CANISTER_ID"],
+      "build_assets": "npm run build",
+      "metadata": [
+        {
+          "name": "candid:service",
+          "path": "src/backend/index.did"
+        },
+        {
+          "name": "cdk:name",
+          "content": "azle"
+        }
+      ],
+      "candid_gen": "http"
     },
     "ckbtc-ledger": {
       "type": "custom",
@@ -23,6 +35,16 @@
       "type": "custom",
       "candid": "tokens/ckbtc-kyt/ckbtc-kyt.did",
       "wasm": "https://download.dfinity.systems/ic/d6d395a480cd6986b4788f4aafffc5c03a07e46e/canisters/ic-ckbtc-kyt.wasm.gz"
+    },
+    "internet-identity": {
+      "type": "custom",
+      "candid": "https://github.com/dfinity/internet-identity/releases/download/release-2023-09-08/internet_identity.did",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/download/release-2023-09-08/internet_identity_dev.wasm.gz",
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      }
     }
   }
 }
