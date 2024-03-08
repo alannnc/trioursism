@@ -1,4 +1,4 @@
-import { Principal, Server, ic } from "azle";
+import { Principal, Server } from "azle";
 import express from "express";
 import z from "zod";
 import { CkbtcLedger, CkbtcMinter } from "./ckbtc";
@@ -8,6 +8,10 @@ import { serviceSchema } from "./controllers/services/servicesSchema";
 import { bookingSchema } from "./controllers/booking/bookingSchema";
 import { reviewSchema } from "./controllers/review/reviewSchema";
 import { paymentSchema } from "./controllers/payment/paymentSchema";
+// import initSqlJs from "sql.js/dist/sql-asm.js";
+
+// import prisma from "@prisma/client";
+// import { readFile } from "fs/promises";
 
 import authRoute from "./routes/auth/users";
 import businessRoute from "./routes/business";
@@ -16,6 +20,8 @@ import bookingRoute from "./routes/booking";
 import reviewRoute from "./routes/review";
 import paymentRoute from "./routes/pay";
 import { generateId } from "./lib/utils";
+import { AppDataSource } from "./db/data-source";
+import { User } from "./db/entity/User";
 
 const globalStateSchema = z.object({
   users: z.array(userSchema),
@@ -123,11 +129,27 @@ export let globalState: GlobalState = {
 
 // Web 3 Hotel/Activities Booking API
 export default Server(() => {
+  // AppDataSource.initialize()
+  //   .then(() => {
+  //     console.log("Data Source has been initialized!");
+  //   })
+  //   .catch((err) => {
+  //     console.error("Error during Data Source initialization:", err);
+  //   });
+
   const app = express();
 
   app.use(express.json());
 
-  app.get("/global-state", (req, res) => {
+  app.get("/global-state", async (req, res) => {
+    try {
+      // const users = await AppDataSource.getRepository(User).find();
+      // return res.json({ users });
+    } catch (error: any) {
+      console.log({ error });
+      throw error;
+    }
+    // console.log("prisma", JSON.stringify(prisma, null, 2));
     res.json(globalState);
   });
 

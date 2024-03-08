@@ -9,7 +9,8 @@
       "build": "npx azle express",
       "wasm": ".azle/express/express.wasm",
       "gzip": true,
-      "env": ["CKBTC_LEDGER_CANISTER_ID", "CKBTC_MINTER_CANISTER_ID"]
+      "env": ["CKBTC_LEDGER_CANISTER_ID", "CKBTC_MINTER_CANISTER_ID"],
+      "assets": [["src/backend/prisma/dev.db", "dev.db"]]
     },
     "ckbtc-ledger": {
       "type": "custom",

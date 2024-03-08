@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String     @id @default(cuid())
+  email String  @unique
+  name  String?
+  principal String?
+  address String?
+  password String?
+
+  bookings Booking[]
+  reviews  Review[]
+}
+
+model Business {
+  id          String   @id @default(cuid())
+  name        String
+  legalName   String
+  description String
+  location    String
+  type        String
+  owner       String
+  lat         Float
+  long        Float
+
+  images      BusinessImages[]
+}
+
+model BusinessImages {
+  id          String     @id @default(cuid())
+  url         String
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  unit        String
+  location    String
+  type        String
+  owner       String
+  status      String
+  lat         Float
+  long        Float
+  country     String
+  state       String
+  city        String
+
+  images      ServiceImages[]
+  bookings    Booking[]
+
+  reviews     Review[]
+}
+
+model ServiceImages {
+  id          String     @id @default(cuid())
+  url         String
+  serviceId   String
+  service     Service @relation(fields: [serviceId], references: [id])
+}
+
+model Booking {
+  id        String   @id @default(cuid())
+  serviceId String
+  userId    String
+  status    String
+  startDate String
+  endDate   String
+
+  service   Service  @relation(fields: [serviceId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  
+  review    Review[]
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  bookingId String
+  serviceId String
+  userId    String
+  userName  String
+  rating    Float
+  comment   String
+
+  booking   Booking @relation(fields: [bookingId], references: [id])
+  service   Service @relation(fields: [serviceId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+}
+
+model Payment {
+  id          String   @id
+  bookingUid  String
+  amount      Float
+  status      String
+}
